@@ -1,5 +1,3 @@
-import 'package:easycalculator/common/keys.dart';
-import 'package:easycalculator/presentation/calculator_button.dart';
 import 'package:easycalculator/presentation/display.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +7,71 @@ class CalculatorMainPage extends StatefulWidget {
 }
 
 class _CalculatorMainPageState extends State<CalculatorMainPage> {
-  double currval;
-  String currStr;
+  updateValue(String buttonText){
+
+    if(buttonText == "CLEAR"){
+
+      _output = "0";
+      num1 = 0.0;
+      num2 = 0.0;
+      operand = "";
+
+    } else if (buttonText == "+" || buttonText == "-" || buttonText == "/" || buttonText == "X"){
+
+      num1 = double.parse(output);
+
+      operand = buttonText;
+
+      _output = "0";
+
+    } else if(buttonText == "."){
+
+      if(_output.contains(".")){
+        return;
+
+      } else {
+        _output = _output + buttonText;
+      }
+
+    } else if (buttonText == "="){
+
+      num2 = double.parse(output);
+
+      if(operand == "+"){
+        _output = (num1 + num2).toString();
+      }
+      if(operand == "-"){
+        _output = (num1 - num2).toString();
+      }
+      if(operand == "X"){
+        _output = (num1 * num2).toString();
+      }
+      if(operand == "/"){
+        _output = (num1 / num2).toString();
+      }
+
+      num1 = 0.0;
+      num2 = 0.0;
+      operand = "";
+
+    } else {
+
+      _output = _output + buttonText;
+
+    }
+
+    setState(() {
+
+      output = double.parse(_output).toStringAsFixed(2);
+
+    });
+
+  }
+  String output = "0";
+  String _output = "0";
+  double num1 = 0.0;
+  double num2 = 0.0;
+  String operand = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,71 +82,77 @@ class _CalculatorMainPageState extends State<CalculatorMainPage> {
       body: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height / 3,
-            width: MediaQuery.of(context).size.width,
-            color: Colors.white,
-            child: Display(displayValue: "5",),
+              height: MediaQuery.of(context).size.height / 3,
+              child: Display(
+                displayValue:output,
+              ),
           ),
           Expanded(
             child: Container(
               color: Colors.grey[100],
-              child: Column(
+              child:  Column(children: [
+                 Expanded(
+                   child: Row(children: [
+                    CalculatorButton("7"),
+                    CalculatorButton("8"),
+                    CalculatorButton("9"),
+                    CalculatorButton("/")
+                ]),
+                 ),
 
-                  children: [
-                    Expanded(
-                      child: Row(
-                          children: <Widget>[
-                            CalculatorButton(symbol: Keys.clear),
-                            CalculatorButton(symbol: Keys.sign),
-                            CalculatorButton(symbol: Keys.percent),
-                            CalculatorButton(symbol: Keys.divide),
-                          ]
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                          children: <Widget>[
-                            CalculatorButton(symbol: Keys.seven),
-                            CalculatorButton(symbol: Keys.eight),
-                            CalculatorButton(symbol: Keys.nine),
-                            CalculatorButton(symbol: Keys.multiply),
-                          ]
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                          children: <Widget>[
-                            CalculatorButton(symbol: Keys.four),
-                            CalculatorButton(symbol: Keys.five),
-                            CalculatorButton(symbol: Keys.six),
-                            CalculatorButton(symbol: Keys.subtract),
-                          ]
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                          children: <Widget>[
-                            CalculatorButton(symbol: Keys.one),
-                            CalculatorButton(symbol: Keys.two),
-                            CalculatorButton(symbol: Keys.three),
-                            CalculatorButton(symbol: Keys.add),
-                          ]
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                          children: <Widget>[
-                            CalculatorButton(symbol: Keys.zero),
-                            CalculatorButton(symbol: Keys.decimal),
-                            CalculatorButton(symbol: Keys.equals),
-                          ]
-                      ),
-                    )
-                  ]
-              ),
+                 Expanded(
+                   child: Row(children: [
+                    CalculatorButton("4"),
+                    CalculatorButton("5"),
+                    CalculatorButton("6"),
+                    CalculatorButton("X")
+                ]),
+                 ),
+
+                 Expanded(
+                   child: Row(children: [
+                    CalculatorButton("1"),
+                    CalculatorButton("2"),
+                    CalculatorButton("3"),
+                    CalculatorButton("-")
+                ]),
+                 ),
+
+                 Expanded(
+                   child: Row(children: [
+                    CalculatorButton("."),
+                    CalculatorButton("0"),
+                    CalculatorButton("00"),
+                    CalculatorButton("+")
+                ]),
+                 ),
+
+                 Expanded(
+                   child: Row(children: [
+                    CalculatorButton("CLEAR"),
+                    CalculatorButton("="),
+                ]),
+                 )
+              ])
             ),
           )
         ],
+      ),
+    );
+  }
+  Widget CalculatorButton(String symbol){
+    return Expanded(
+      child: RaisedButton(
+        color: Colors.transparent,
+        elevation: 0,
+        focusElevation: 0,
+        highlightElevation: 0,
+        onPressed: (){
+          updateValue(symbol);
+        },
+        child: Container(
+          child: Center(child: Text(symbol)),
+        ),
       ),
     );
   }

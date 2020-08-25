@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class Display extends StatelessWidget {
   final String displayValue;
-
   const Display({Key key, this.displayValue}) : super(key: key);
 
   @override
@@ -16,7 +15,7 @@ class Display extends StatelessWidget {
             padding: const EdgeInsets.only(top:8.0,right: 8.0),
             child: Text(
               displayValue,
-              style: TextStyle(fontSize: 25.0),
+              style: TextStyle(fontSize: displayValue.substring(0,1)=="B"?15.0:25.0),
             ),
           ),
         ),

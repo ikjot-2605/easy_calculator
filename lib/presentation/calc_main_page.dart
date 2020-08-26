@@ -8,6 +8,7 @@ class CalculatorMainPage extends StatefulWidget {
 }
 
 class _CalculatorMainPageState extends State<CalculatorMainPage> {
+  String last_pressed;
   updateValue(String buttonText) {
     if (buttonText == "CLEAR") {
       _output = "0";
@@ -54,12 +55,20 @@ class _CalculatorMainPageState extends State<CalculatorMainPage> {
       num2 = 0.0;
       operand = "";
     } else {
-      _output = _output + buttonText;
+      if(last_pressed!='='){
+        if(_output!="0")_output = _output + buttonText;
+        else _output = buttonText;
+      }
+      else{
+        _output=buttonText;
+      }
     }
 
     setState(() {
       output = double.parse(_output).toStringAsFixed(2);
     });
+
+    last_pressed=buttonText;
   }
 
   String output = "0";

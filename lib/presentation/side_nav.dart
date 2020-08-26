@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NavDrawer extends StatelessWidget {
-  _launchURL(String url) async {
+  _launchURL(String url,BuildContext context) async {
     try {
       if (await canLaunch(url)) {
         await launch(url);
@@ -13,7 +13,10 @@ class NavDrawer extends StatelessWidget {
       }
     }
     catch(e){
-
+      final snackBar = SnackBar(
+        content: Text('Sorry, something went wrong'),
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
     }
   }
   @override
@@ -49,7 +52,7 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.code),
             title: Text('View Source Code'),
             onTap: ()async{
-              await _launchURL('https://github.com/ikjot-2605/easy_calculator');
+              await _launchURL('https://github.com/ikjot-2605/easy_calculator',context);
             },
           ),
         ],

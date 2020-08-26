@@ -65,7 +65,7 @@ class _CalculatorMainPageState extends State<CalculatorMainPage> {
     }
 
     setState(() {
-      output = double.parse(_output).toStringAsFixed(2);
+      output = double.parse(_output).toString();
     });
 
     last_pressed=buttonText;

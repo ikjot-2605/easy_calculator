@@ -161,7 +161,7 @@ class _CalculatorMainPageState extends State<CalculatorMainPage> {
           updateValue(symbol);
         },
         child: Container(
-          child: Center(child: Text(symbol)),
+          child: Center(child: Text(symbol,style: TextStyle(fontSize: 20.0),)),
         ),
       ),
     );

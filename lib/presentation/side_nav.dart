@@ -30,11 +30,7 @@ class NavDrawer extends StatelessWidget {
               'Easy Calculator',
               style: TextStyle(color: Colors.white, fontSize: 25),
             ),
-            decoration: BoxDecoration(
-                color: Colors.green,
-                image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage('assets/sidenav_image.jpg'))),
+
           ),
           ListTile(
             leading: Icon(Icons.input),

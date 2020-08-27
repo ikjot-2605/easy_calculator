@@ -8,6 +8,8 @@ class CalculatorMainPage extends StatefulWidget {
 }
 
 class _CalculatorMainPageState extends State<CalculatorMainPage> {
+  bool topDisplay = false;
+  String operator;
   String last_pressed;
   updateValue(String buttonText) {
     if (buttonText == "CLEAR") {
@@ -21,7 +23,8 @@ class _CalculatorMainPageState extends State<CalculatorMainPage> {
         buttonText == "X" ||
         buttonText == "%") {
       num1 = double.parse(output);
-
+      operator = buttonText;
+      topDisplay=true;
       operand = buttonText;
 
       _output = "0";
@@ -54,6 +57,7 @@ class _CalculatorMainPageState extends State<CalculatorMainPage> {
       num1 = 0.0;
       num2 = 0.0;
       operand = "";
+      topDisplay=false;
     } else {
       if(last_pressed!='='){
         if(_output!="0")_output = _output + buttonText;
@@ -92,6 +96,8 @@ class _CalculatorMainPageState extends State<CalculatorMainPage> {
               displayValue: _output,
               number1: num1.toString(),
               number2: num2.toString(),
+              displayTop: topDisplay,
+              operator: operator,
             ),
           ),
           Expanded(

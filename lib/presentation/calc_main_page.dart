@@ -22,6 +22,8 @@ class _CalculatorMainPageState extends State<CalculatorMainPage> {
       num1 = 0.0;
       num2 = 0.0;
       operand = "";
+      operator="";
+      topDisplay=false;
     } else if (buttonText == "+" ||
         buttonText == "-" ||
         buttonText == "/" ||

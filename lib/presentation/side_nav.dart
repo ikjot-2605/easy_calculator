@@ -3,7 +3,17 @@ import 'package:easycalculator/presentation/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class NavDrawer extends StatelessWidget {
+import 'get_name.dart';
+
+class NavDrawer extends StatefulWidget {
+  final String name;
+
+  const NavDrawer({Key key, this.name}) : super(key: key);
+  @override
+  _NavDrawerState createState() => _NavDrawerState();
+}
+
+class _NavDrawerState extends State<NavDrawer> {
   _launchURL(String url,BuildContext context) async {
     try {
       if (await canLaunch(url)) {
@@ -19,6 +29,7 @@ class NavDrawer extends StatelessWidget {
       Scaffold.of(context).showSnackBar(snackBar);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -27,8 +38,8 @@ class NavDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             child: Text(
-              'Easy Calculator',
-              style: TextStyle(color: Colors.white, fontSize: 25),
+              'Welcome ${widget.name}',
+              style: TextStyle(fontSize: 25),
             ),
 
           ),
@@ -36,6 +47,15 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.input),
             title: Text('Welcome'),
             onTap: () => {},
+          ),
+          ListTile(
+            leading: Icon(Icons.update),
+            title: Text('Change Name'),
+            onTap: () => {
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context)=>GetName()
+              ))
+            },
           ),
           ListTile(
             leading: Icon(Icons.settings),

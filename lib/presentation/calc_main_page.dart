@@ -3,11 +3,16 @@ import 'package:easycalculator/presentation/side_nav.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorMainPage extends StatefulWidget {
+  final String name;
+
+  const CalculatorMainPage({Key key, this.name}) : super(key: key);
+
   @override
   _CalculatorMainPageState createState() => _CalculatorMainPageState();
 }
 
 class _CalculatorMainPageState extends State<CalculatorMainPage> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool topDisplay = false;
   String operator;
   String last_pressed;
@@ -83,7 +88,8 @@ class _CalculatorMainPageState extends State<CalculatorMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavDrawer(),
+      key: _scaffoldKey,
+      drawer: NavDrawer(name:widget.name),
       appBar: AppBar(
         title: Text('Calculator'),
         centerTitle: true,

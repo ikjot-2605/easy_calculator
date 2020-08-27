@@ -19,16 +19,20 @@ class _GetNameState extends State<GetName> {
           gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.blueGrey, Colors.lightBlueAccent]),
+              colors: [Colors.blueGrey[200], Colors.lightBlueAccent]),
         ),
-        child: ListView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Column(
-              children: <Widget>[
-                Input(),
-                ButtonLogin(),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("Hi, What's your name?",style: TextStyle(
+                fontSize: 30.0,color: Colors.white
+              ),),
             ),
+            Input(),
+            ButtonLogin(),
           ],
         ),
       ),
@@ -82,7 +86,6 @@ class _ButtonLoginState extends State<ButtonLogin> {
     return Padding(
       padding: const EdgeInsets.only(top: 40, right: 50, left: 200),
       child: Container(
-        alignment: Alignment.bottomRight,
         height: 50,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
